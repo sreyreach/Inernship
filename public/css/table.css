@@ -1,0 +1,61 @@
+body{
+    background-color: #000d33;
+}
+.table-wrapper{
+    padding: 20px 25px;
+    margin: 30px;
+    border-radius: 3px;
+}
+.table-tile{
+    padding-bottom: 15px;
+    background:linear-gradient(to botton,#00cccc 0%,#0033cc 100% ) ;
+    color:#fff;
+    padding: 16px 30px;
+    margin: -20px -25px 10px;
+    border-radius: 3px 3px 0 0;
+}
+.table-tittle h2{
+    margin: 5px 0 0;
+    font-size: 28px;
+
+}
+.table-title .btn{
+    color: #fff;
+    float: right;
+    font-size: 10px;
+    border: none;
+    min-width: 100px;
+    border-radius: 5px;
+    margin-left: 10px;
+
+}
+table.table td a.read{
+    color: green;
+}
+table.table td a.update{
+    color: darkorange;
+}
+.teble.table td a.delete{
+    color: red;
+}
+table.table tr th, table.table tr td{
+    background-color: #fff;
+    padding: 12px 15px 5px 70px;
+    vertical-align: middle;
+}
+.search{
+    width: 130px;
+    margin-left: -200px;
+    float: left;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    padding: 12px 12px 12px 40px;
+    -webkit-transition: with 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+.search:focus{
+    width: 100%;
+}

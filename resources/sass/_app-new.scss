@@ -1,0 +1,158 @@
+
+
+#add-new {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #f3f5f9;
+    #back {
+        position: absolute;
+        top: 3%;
+        left: 10%;
+        border: none {
+            radius: 7px;
+        }
+        background: #d082f4;
+        color: #fff;
+        &:focus {
+            outline: none;
+        }
+        &:hover { 
+            background: linear-gradient(90deg, #62e0e0, #d082f4) {}
+        }
+        padding: 5px 10px;
+    }
+    #box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        background: #fff;
+        border: {
+            radius: 7px;
+        }
+        box: {
+            shadow: 7px 7px 7px #c5c5c5;
+        }
+        h1 {
+            text: {
+                align: center;
+            }
+        }
+        #container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            #left {
+                width: 63%;
+            }
+            #right {
+                width: 33%;
+
+            }
+            label {
+                margin: 20px 0;
+                &[for=image] {
+                    margin-bottom: 10px;
+                }
+                &[for=cover], &[for=pdf], &[for=category_id] {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+            }
+            input, textarea {
+                &:focus {
+                    outline: none;
+                } 
+            }
+            input[type=text], input[type=password], textarea {
+                &::placeholder {
+                    color: rgb(185, 185, 185);
+                }
+                width: 100%;
+                box: {
+                    sizing: border-box;
+                }
+                border: none {
+                    radius: 7px;
+                }
+                background: #eeeeee {}
+                height: 40px;
+                padding: {
+                    left: 20px;
+                    right: 20px;
+                }
+            }
+            textarea {
+                height: 150px;
+                min-height: 70px;
+                max-height: 280px;
+                padding: 20px;
+                resize: vertical;
+            }
+            input[type=file] {
+                display: none;
+            }
+            .custom-file-control {
+                &::before {
+                    content: "Choose file...";
+                    background: {
+                        color: #eee;
+                    }
+                    padding: {
+                        left: 20px;
+                        right: 20px;
+                        top: 12px;
+                        bottom: 12px;
+                    }
+                    border: {
+                        top-left-radius: 7px;
+                        bottom-left-radius: 7px;
+                    }
+                    color: rgb(185, 185, 185);
+                }
+                &::after {
+                    content: "Browse";
+                    background: {
+                        color: #d082f4;
+                    }
+                    padding: {
+                        left: 20px;
+                        right: 20px;
+                        top: 12px;
+                        bottom: 12px;
+                    }
+                    border: {
+                        top-right-radius: 7px;
+                        bottom-right-radius: 7px;
+                    }
+                    color: #fff;
+                }
+            }
+        }
+        #done-add-new {
+            font-weight: bolder;
+            width: 100%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            height: 5%;
+            padding: 0 20px;
+            border: none {
+                bottom-left-radius: 7px;
+                bottom-right-radius: 7px;
+            };
+            &:focus {
+                outline: none;
+            }
+            background: linear-gradient(90deg, #62e0e0, #d082f4);
+            color: #fff;
+            text-transform: uppercase;
+        }
+        padding: 20px 50px;
+    }
+}
