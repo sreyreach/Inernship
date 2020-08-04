@@ -9,6 +9,6 @@ class PostCv extends Model
     protected $table = "postcv";
 
     protected $fillable = [
-        'pdf','title','experience','pdf','email', 'phone_number',
+        'pdf','title','experience','email', 'phone_number',
     ];
 }

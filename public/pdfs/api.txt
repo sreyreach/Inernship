@@ -1,0 +1,23 @@
+ if($request->has('Icon'))
+        {
+            $image = $request->file('Icon');
+            $filename = $request->input('company_name');
+            $pa = 'storage\app\public\uploads\images'.'/';
+            $pathDB = base_path($pa);
+            //Define foler path
+    
+            $pathlocal = '\uploads\images'.'/';
+            $filePath = $pathDB.$filename.'.'.$image->getClientOriginalExtension();
+            $FILE = base64_decode($filePath);
+            //Uplode Image
+    
+            $this->uploadOne($image,$pathlocal,'public',$filename);
+            $stmt->Icon = $FILE;
+        }
+            $stmt->save();
+            $response["Job Accountment"] = $stmt;
+            $response["success"] = "1";
+    
+            $form_data = array(
+              $response  
+            );

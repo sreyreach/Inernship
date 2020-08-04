@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group">
-                <label class="text1">Birth</label>
+                <label class="text1">Birth date</label>
                 <div class="col1">
                 <input type="text" name="birth" value="{{ old('birth') }}"  class="form-control input-lg"/>
             </div>

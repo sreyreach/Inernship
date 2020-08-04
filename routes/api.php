@@ -15,23 +15,26 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/login', 'API\AuthController@login');
 Route::post('/register', 'API\AuthController@register');
-Route::post('/postjob/create','API\PostJobController@store');
+
+//Route::post('/postjob/create','API\PostJobController@store');
 //Route::get('/postjob/show','API\PostJobController@show');
 
 
-Route::resource('postcv', 'API\PostCvController');
-Route::post('/postcv/create','API\PostCvController@store');
-Route::get('/postcv/show','API\PostCvController@show');
+//Route::resource('postcv', 'API\PostCvController');
+//Route::post('/postcv/create','API\PostCvController@store');
+//Route::get('/postcv/show','API\PostCvController@show');
 
 
 Route::group(["middleware" => ['auth:api']], function () {
     Route::get('/user', 'API\UserController@index');
 
-    // Route::resource('postjob', 'API\PostJobController');
-    // Route::post('/postjob/create','API\PostJobController@store');
-    // Route::get('/postjob/show','API\PostJobController@show');
+    Route::resource('postjob', 'API\PostJobController');
+    Route::post('/postjob/create','API\PostJobController@store');
+    Route::get('/postjob/show','API\PostJobController@show');
 
+    Route::resource('postcv', 'API\PostCvController');
     Route::get('/postcv/show','API\PostCvController@show');
+    Route::post('/postcv/create','API\PostCvController@store');
 
 
 });

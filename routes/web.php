@@ -27,6 +27,7 @@ Route::get('/user/{id}/destroy', 'UserController@destroy');
 Route::resource('employer','EmployerController');
 Route::get('/employer/{id}/destroy', 'EmployerController@destroy');
 
+
 Route::resource('employees', 'employeesController');
 Route::get('/employees/{id}/destroy','EmployeesController@destroy');
 

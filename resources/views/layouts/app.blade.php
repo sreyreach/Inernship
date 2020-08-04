@@ -128,10 +128,9 @@
         </div>
         <div id="right">
             <div id="topbar">
-                <form>
+                <form method="GET" action="">
                     <input id="searchbar" type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome"/>
                 </form>
-                <h1 id="topbar-title">USER > ALL USERS</h1>
                 <img id="dotdotdot" src="/images/dotdotdot.png">
             </div>
             <main class="py-4">

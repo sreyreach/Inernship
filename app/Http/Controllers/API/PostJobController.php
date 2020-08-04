@@ -39,6 +39,15 @@ class PostJobController extends Controller
      * @return \Illuminate\Http\Response
      */ 
         public function store(Request $request){
+
+            // $validator = Validator::make($request->all(), [
+            //     //'image' => 'required|mimes:pdf|mimes:image',
+            //     'image'  => 'required|image',
+            //  ]);
+    
+            // if($validator->fails()){
+            //   return response()->json(['error'=>'Wrong extension'], 200);
+            // }
          //dd($request);
             $credential = $request->only( 'company_name','title','term','requirement','email','address','image','phone_number');
             
@@ -48,22 +57,19 @@ class PostJobController extends Controller
             //     return response()->json(['error'=>'Unauthorised'], 401);
             // } 
 
-           if ($request->hasFile('image')) {
-                $image = $request->file('image');    
-
-                //$new_name = rand() . '.' .$image->getClientOriginalExtension();
-                //$new_name = Carbon::now()->format('YmdHst'). $request->file('image')->getClientOriginalExtension();
-                $new_name = uniqid() . $image->getClientOriginalName() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('images'), $new_name);
+           if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');    
+                $new_name = $photo->getClientOriginalName();
+                $photo->move(public_path('images'), $new_name);
                 $request['image'] = $new_name;
-                
+               //  return $new_name;
             }
             else{
-                
+
                 return response()->json(['error'=>'Unauthorised'], 401);
             }
-            
-            $postjob = PostJob::create($request->toArray()); 
+        //    return $request;
+           $postjob = PostJob::create($request->toArray()); 
 
             return response()->json($postjob);
         }   
@@ -102,20 +108,7 @@ class PostJobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $credential = $request->only( 'company_name','title','term','requirement','email','address','image','phone_number');
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');    
-
-            $new_name = rand() . '.' .$image->getClientOriginalExtension();
-            //$new_name = Carbon::now()->format('YmdHst'). $request->file('image')->getClientOriginalExtension();
-            $image->move(public_path('images'), $new_name);
-            $request['image'] = $new_name;
-            
-        }
-        
-        $postjob = PostJob::update($request->toArray()); 
-
-        return response()->json($postjob);
+        //
     }
 
     /**

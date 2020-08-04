@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Auth;
-use App\PostCV;
+use App\PostCv;
 class PostCvController extends Controller
 {
     /**
@@ -37,26 +37,36 @@ class PostCvController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $credential = $request->only( 'pdf','title','experience','email','phone_number');
-       
-        if ($request->hasFile('file')) {
-            //$file = $request->file('file'); 
-            
-            $pd = $request->file('file');
-            $pdName = rand() . '.' . $pd-> getClientOriginalExtension();
-            $pd->move(public_path('pdfs'), $pdName);
+    public function store(Request $request){
 
-           // $uniqueFileName = uniqid() . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
-           // $file->move(public_path('pdfs'),$uniqueFileName);
-           // $request['file'] = $uniqueFileName;
-            
-        }
+        //dd($request);
         
-        $postcv = PostCv::create($request->toArray()); 
+        
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:pdf',
+         ]);
 
-        return response()->json( $postcv);
+        if($validator->fails()){
+          return response()->json(['error'=>'Wrong extension'], 200);
+        }
+
+        $credential = $request->only( 'pdf','title','experience','email', 'phone_number' );
+           
+          // return $credential;
+          if ($request->hasFile('file')) {
+                $value = $request->file('file');   
+                $pdName = $value->getClientOriginalName();
+                $value->move(public_path('pdfs'), $pdName);
+                $request['pdf'] = $pdName;
+           }
+           else{
+               return response()->json(['error'=>'Unauthorised'], 401);
+           }
+          
+         // return $request;
+          $postcv = PostCv::create($request->toArray()); 
+           //dd($postcv);
+           return response()->json($postcv);
     }
 
     /**

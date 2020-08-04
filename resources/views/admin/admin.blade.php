@@ -8,7 +8,8 @@
         <div class="table-title">
             <div class="sarch">
                
-                <a href="{{ route('user.create') }}" class="btn btn-success"><i class="materil-icons" titile="Create"></i>
+                <a href="{{ route('user.create') }}" class="btn btn-success">
+                    <i class="materil-icons" titile="Create"></i>
                     <span>Add</span>
                 </a>
             </div>
@@ -41,7 +42,8 @@
                         <div>
                             <a href="{{ route('user.show', $data)}}" class="btn_btn-default" >Show</a>
                             <a href="{{ route('user.edit', $data)}}" class="btn btn-warning">Edit</a>
-                            <a href="{{ url('/user/'.$data->id.'/destroy') }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger" >Delete</a>
+                            <a href="{{ url('/user/'.$data->id.'/destroy') }}" onclick="return 
+                            confirm('Are you sure you want to delete this item?');" class="btn btn-danger" >Delete</a>
                         </div>
                     </td>
                 </tr> 

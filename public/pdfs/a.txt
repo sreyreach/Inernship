@@ -1,0 +1,15 @@
+ return Notifications<ScrollNotification>(
+                    onNotification: (nofitication) {
+                      if (nofitication is ScrollNotification) {
+                        debugPrint("Scroll Stated");
+                      } else if (nofitication is ScrollNotification) {
+                        debugPrint("Scroll Ended");
+                      }
+                      return true;
+                    },
+                    child: ListView.builder(
+                        itemCount: photo.length,
+                        itemBuilder: (context, index) {
+                          return CustomListTile(photo[index]);
+                        });
+                );

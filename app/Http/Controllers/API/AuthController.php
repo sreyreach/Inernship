@@ -14,9 +14,9 @@ class AuthController extends Controller
     public function login(Request $request){
         $credential = $request->only('email', 'password');
         // return $credential;
-        if (Auth::attempt($credential)) {
+        if ('Auth'::attempt($credential)) {
             $api_token = str::random(60);
-            User::where('id', Auth::user()->id)->update(['api_token' => $api_token]);
+            User::where('id', 'Auth'::user()->id)->update(['api_token' => $api_token]);
             return response()->json(['Authorisation', $api_token]);
         }else{
             return response()->json(['error'=>'Unauthorised'], 401); 
@@ -28,7 +28,7 @@ class AuthController extends Controller
         $credential = $request->only('first_name','last_name','email', 'password','company_name', 
         'adress', 'birth');
         //return $credential;
-        if (Auth::attempt($credential)) 
+        if ('Auth'::attempt($credential)) 
         {
              return response()->json(['error'=>'Unauthorised'], 401);
         }
