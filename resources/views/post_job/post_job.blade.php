@@ -28,8 +28,8 @@
                     <th style="text-align:center" width="10%">Requirement</th>
                     <th style="text-align:center" width="10%">email</th>
                     <th style="text-align:center" width="10%">Address</th>
-                    <th style="text-align:center" width="15%">Phone Number</th>
-                    <th style="text-align:center" width="18%">Action</th>
+                    <th style="text-align:center" width="13%">Phone Number</th>
+                    <th style="text-align:center" width="20%">Action</th>
                 </tr>
             </thead>
             <tbody>

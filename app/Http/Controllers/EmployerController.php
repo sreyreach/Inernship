@@ -98,7 +98,7 @@ class EmployerController extends Controller
             'first_name'   => 'required',
             'last_name'    => 'required',
             'company_name' => 'required',
-            'email' => 'unique:App\User,email,'.$id,
+            'email' => 'unique:App\User,numeric'.$id,
             //'email_address' =>'required|email|unique:users,email_address,'.$id,
             'phone_number' => 'numeric',
             'address'  => 'required',

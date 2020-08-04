@@ -98,7 +98,7 @@ class EmployeesController extends Controller
             'birth'        => 'required',
             'email'        => 'unique:App\User,email,'.$id,
             //'email_address' =>'required|email|unique:users,email_address,'.$id,
-            'phone_number' => 'numeric',
+            'phone_number' => 'unique:App\User,numeric',
         ]);
     
         $form_data = array(

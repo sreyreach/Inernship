@@ -13,7 +13,29 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/login', 'API\AuthController@login');
+Route::post('/register', 'API\AuthController@register');
+Route::post('/postjob/create','API\PostJobController@store');
+//Route::get('/postjob/show','API\PostJobController@show');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::resource('postcv', 'API\PostCvController');
+Route::post('/postcv/create','API\PostCvController@store');
+Route::get('/postcv/show','API\PostCvController@show');
+
+
+Route::group(["middleware" => ['auth:api']], function () {
+    Route::get('/user', 'API\UserController@index');
+
+    // Route::resource('postjob', 'API\PostJobController');
+    // Route::post('/postjob/create','API\PostJobController@store');
+    // Route::get('/postjob/show','API\PostJobController@show');
+
+    Route::get('/postcv/show','API\PostCvController@show');
+
+
 });
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// }); 'API\AuthController@login'

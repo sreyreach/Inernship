@@ -96,11 +96,11 @@ class PostCvController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title'  =>  'required',
+            'title'       =>  'required',
             'experience'  =>  'required',
-            'email' => 'required',
+            'email'       => 'required',
             'phone_number'=>'required',
-            'file' => 'file',
+            'file'        => 'file',
         ]);
 
         $pd = $request->file('file');
@@ -130,6 +130,6 @@ class PostCvController extends Controller
     {
         $data = PostCv::findOrFail($id);
         $data->delete();
-        return redirect('post_job')->with('success','Data is successfully deleted!');
+        return redirect('post_cv')->with('success','Data is successfully deleted!');
     }
 }
