@@ -13,9 +13,9 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        $user = User::where('role',2)->get();
-
-        return view('\employer\employer', compact('user'));
+        $user = User::where('role',2)->paginate(10);
+        return view('\employer\employer', compact('user'))
+             ->with('i', (request()->input('page',1) -1) *5);
     }
 
     /**
@@ -41,7 +41,7 @@ class EmployerController extends Controller
             'last_name'    => 'required',
             'company_name' => 'required',
             'email'        => 'required|unique:App\User,email',
-            'phone_number' => 'numeric',
+            'phone_number' => 'required|numeric|unique:App\User',
             'address'      => 'required',
         ]);
     

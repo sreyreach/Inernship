@@ -28,4 +28,12 @@ protected $casts = [
     'email_verified_at' => 'datetime',
 ];
 
+public function postcv() {
+  return $this->hasMany('App\Postcv');
+}
+
+public function postjob() {
+  return $this->hasMany('App\PostCv');
+}
+
 }

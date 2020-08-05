@@ -101,6 +101,19 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
+
+                            <div class="form-group row">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Opsion') }}</label>
+    
+                                <div class="col-md-6">
+                                    <select name="role" id="role"  class="form-control ">
+                                        <option value="2">Employer</option>
+                                        <option value="3" selected>Employees</option>
+                                    </select>
+                                   
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
     
@@ -127,7 +140,39 @@
                                     @enderror
                                 </div>
                             </div>
+                         {{-- //   @if( Auth::user()->role == "3" ) --}}
+                            <div class="form-group row bod">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Birth of date') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="birth" type="text" class="form-control @error('name') is-invalid @enderror" name="birth" value="{{ old('birth') }}" autocomplete="name" autofocus>
+    
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                             
+                            {{-- @endif --}}
+                           
+                            <div class="form-group row cna">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Company Name') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="company_name" value="{{ old('company_name') }}" autocomplete="name" autofocus>
+    
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                           
+
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
     
@@ -141,7 +186,21 @@
                                     @enderror
                                 </div>
                             </div>
+                            
+                            <div class="form-group row cna">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
     
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="address" value="{{ old('address') }}" autocomplete="name" autofocus>
+    
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            
     
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
@@ -179,19 +238,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Opsion') }}</label>
-    
-                                <div class="col-md-6">
-                                    <select name="role" id="role"  class="form-control ">
-                                        <option value="2">Employer</option>
-                                        <option value="3">Employees</option>
-                                    </select>
-                                   
-                                </div>
-                            </div>
-
-    
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -205,5 +251,25 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#role').change(function(){
+               $role_id = $(this).val();
+               if($role_id == '2'){
+                    $('.bod').hide();
+                    $('.cna').show();
+               }
+               else {
+                   $('.cna').hide();
+                   $('#birth').val('');
+                   $('.bod').show();
+
+               }
+              
+
+            })
+        })
+    </script>
 </body>
 </html>

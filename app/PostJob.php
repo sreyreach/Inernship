@@ -9,8 +9,13 @@ class PostJob extends Model
     protected $table = "postjob";
 
     protected $fillable = [
-        'company_name','term','title','requirement','experience','email','last_date','address','phone_number','image',
+        'company_name','title','term','requirement',
+        'email','address','image','phone_number','user_id'
        
     ];
+
+    public function employer(){
+        return $this->belongsTo('App\User', 'id');
+    }
 
 }

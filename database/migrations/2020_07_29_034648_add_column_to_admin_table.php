@@ -16,7 +16,7 @@ class AddColumnToAdminTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('first_name')->after('id')->nullable();
             $table->string('last_name')->after('first_name')->nullable();
-            $table->string('phone_number')->after('email')->nullable();
+            $table->string('phone_number')->unique()->after('email')->nullable();
         });
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -8,7 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Auth;
+use App\User;
 use App\PostCv;
+
 class PostCvController extends Controller
 {
     /**
@@ -37,36 +40,46 @@ class PostCvController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         //dd($request);
-        
-        
+
+
         $validator = Validator::make($request->all(), [
             'file' => 'required|mimes:pdf',
-         ]);
+        ]);
 
-        if($validator->fails()){
-          return response()->json(['error'=>'Wrong extension'], 200);
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Wrong extension'], 200);
         }
 
-        $credential = $request->only( 'pdf','title','experience','email', 'phone_number' );
-           
-          // return $credential;
-          if ($request->hasFile('file')) {
-                $value = $request->file('file');   
+        $user = User::where('id', $request->user_id)->select('role')->first();
+        //dd($role->role);
+        if ($user->role == '3') {
+
+            $credential = $request->only('pdf', 'title', 'experience', 'email', 'phone_number', 'user_id');
+
+            // return $credential;
+            if ($request->hasFile('file')) {
+                $value = $request->file('file');
                 $pdName = $value->getClientOriginalName();
                 $value->move(public_path('pdfs'), $pdName);
                 $request['pdf'] = $pdName;
-           }
-           else{
-               return response()->json(['error'=>'Unauthorised'], 401);
-           }
+            } 
+            else {
+                return response()->json(['error' => 'Unauthorised'], 401);
+            }
+
+            // return $request;
+            //return;
           
-         // return $request;
-          $postcv = PostCv::create($request->toArray()); 
-           //dd($postcv);
-           return response()->json($postcv);
+        } else {
+            return response()->json(['error' => 'Wrong position'], 200);
+        }
+        //dd($postcv);
+        $postcv = PostCv::create($request->toArray());
+        return response()->json($postcv);
     }
 
     /**
@@ -75,7 +88,7 @@ class PostCvController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         $postcv = PostCv::latest('id')->get();
         return response()->json($postcv);

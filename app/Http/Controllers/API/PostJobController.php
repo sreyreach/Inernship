@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Auth;
+use App\User;
 use App\PostJob;
 
 class PostJobController extends Controller
@@ -41,15 +42,19 @@ class PostJobController extends Controller
         public function store(Request $request){
 
             // $validator = Validator::make($request->all(), [
-            //     //'image' => 'required|mimes:pdf|mimes:image',
-            //     'image'  => 'required|image',
-            //  ]);
+            //     'image'  => 'required|image|mimes:jpeg,bmp,png,pdf', 
+            // ]);
     
-            // if($validator->fails()){
-            //   return response()->json(['error'=>'Wrong extension'], 200);
+            // if ($validator->fails()) {
+            //     return response()->json(['error' => 'Wrong extension'], 200);
             // }
+
+            $user = User::where('id', $request->user_id)->select('role')->first();
+
          //dd($request);
-            $credential = $request->only( 'company_name','title','term','requirement','email','address','image','phone_number');
+        if ($user->role == '2') {
+            $credential = $request->only( 'company_name','title','term','requirement',
+            'email','address','image','phone_number','user_id');
             
             //return $credential;
             // if (Auth::attempt($credential)) 
@@ -68,6 +73,9 @@ class PostJobController extends Controller
 
                 return response()->json(['error'=>'Unauthorised'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Wrong position'], 200);
+        }
         //    return $request;
            $postjob = PostJob::create($request->toArray()); 
 
