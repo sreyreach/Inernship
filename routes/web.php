@@ -36,3 +36,7 @@ Route::get('/post_job/{id}/destroy','PostJobController@destroy');
 
 Route::resource('post_cv','PostCvController');
 Route::get('/post_cv/{id}/destroy','PostCvController@destroy');
+
+Route::get('/search', 'UserController@search');
+Route::get('/search', 'EmployerController@search');
+Route::get('/search', 'EmployeesController@search');

@@ -4,8 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+//use App\Auth;
+//use Illuminate\Support\Facades\Auth;
+use Auth;
 class EmployerController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,11 +25,20 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        $user = User::where('role',2)->paginate(10);
-        return view('\employer\employer', compact('user'))
-             ->with('i', (request()->input('page',1) -1) *5);
+        // $user = User::where('role',2)->andWhere('id',Auth::User()->id)->paginate(10);
+        // return view('\employer\employer', compact('user'))
+        //      ->with('i', (request()->input('page',1) -1) *5);
+
+             if(Auth::User()->role == 1){
+                $user = User::where('role',2)->paginate(10);
+            }else{
+                $user = User::where('role',2)->where('id',Auth::User()->id)->paginate(10);
+            }
+            return view('\employer\employer', compact('user'))
+                 ->with('i', (request()->input('page',1) -1) *5);
     }
 
+  
     /**
      * Show the form for creating a new resource.
      *
@@ -100,7 +121,7 @@ class EmployerController extends Controller
             'company_name' => 'required',
             'email' => 'unique:App\User,numeric'.$id,
             //'email_address' =>'required|email|unique:users,email_address,'.$id,
-            'phone_number' => 'numeric',
+            'phone_number' => 'required|numeric|unique:App\User',
             'address'  => 'required',
         ]);
     

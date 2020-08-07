@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\PostCv;
+use App\PostJob;
+use Auth;
 class PostCvController extends Controller
 {
     /**
@@ -13,7 +15,12 @@ class PostCvController extends Controller
      */
     public function index()
     {
-        $postcv = PostCv::all();
+        if(Auth::User()->role == 1){
+            $postcv = PostCv::latest()->paginate(10);
+           // $user = User::where('role',2)->paginate(10);
+        }else{
+            $postcv = PostCv::where('user_id', Auth::User()->id)->paginate(10);
+        }
         return view('\post_cv\post_cv', compact('postcv'));
     }
 
@@ -37,11 +44,11 @@ class PostCvController extends Controller
     {
 
         $request->validate([
-            'title'  =>  'required',
+            'title'       =>  'required',
             'experience'  =>  'required',
-            'email' => 'required',
+            'email'       => 'required',
             'phone_number'=>'required',
-            'file' => 'file',
+            'file'        => 'file',
         ]);
 
         $pd = $request->file('file');

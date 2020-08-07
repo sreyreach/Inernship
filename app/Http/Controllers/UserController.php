@@ -19,7 +19,7 @@ class UserController extends Controller
        $user = User::where('role',1)->get();
        return view('\admin\admin', compact('user'));
     }
-
+   
     /**
      * Show the form for creating a new resource.
      *

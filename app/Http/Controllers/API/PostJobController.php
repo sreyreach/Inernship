@@ -41,42 +41,35 @@ class PostJobController extends Controller
      */ 
         public function store(Request $request){
 
-            // $validator = Validator::make($request->all(), [
-            //     'image'  => 'required|image|mimes:jpeg,bmp,png,pdf', 
-            // ]);
-    
-            // if ($validator->fails()) {
-            //     return response()->json(['error' => 'Wrong extension'], 200);
-            // }
-
             $user = User::where('id', $request->user_id)->select('role')->first();
 
          //dd($request);
-        if ($user->role == '2') {
-            $credential = $request->only( 'company_name','title','term','requirement',
-            'email','address','image','phone_number','user_id');
-            
-            //return $credential;
-            // if (Auth::attempt($credential)) 
-            // {
-            //     return response()->json(['error'=>'Unauthorised'], 401);
-            // } 
+            if ($user->role == '2') {
+                $credential = $request->only( 'company_name','title','term','requirement',
+                'email','address','image','phone_number','user_id');
+                    
+                    //return $credential;
+                    // if (Auth::attempt($credential)) 
+                    // {
+                    //     return response()->json(['error'=>'Unauthorised'], 401);
+                    // } 
 
-           if ($request->hasFile('photo')) {
-                $photo = $request->file('photo');    
-                $new_name = $photo->getClientOriginalName();
-                $photo->move(public_path('images'), $new_name);
-                $request['image'] = $new_name;
-               //  return $new_name;
-            }
-            else{
+                if ($request->hasFile('photo'))
+                {
+                        $photo = $request->file('photo');    
+                        $new_name = $photo->getClientOriginalName();
+                        $photo->move(public_path('images'), $new_name);
+                        $request['image'] = $new_name;
+                    //  return $new_name;
+                }else{
 
-                return response()->json(['error'=>'Unauthorised'], 401);
+                        return response()->json(['error'=>'Unauthorised'], 401);
+                    }
+
+            } else {
+                return response()->json(['error' => 'Wrong position'], 200);
             }
-        } else {
-            return response()->json(['error' => 'Wrong position'], 200);
-        }
-        //    return $request;
+            //    return $request;
            $postjob = PostJob::create($request->toArray()); 
 
             return response()->json($postjob);
@@ -116,7 +109,53 @@ class PostJobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
+            
+            $user = User::where('id', $request->user_id)->select('role')->first();
+
+        //dd($request);
+           if ($user->role == '2') {
+               $credential = $request->only( 'company_name','term','title','requirement',
+               'email','address','last_date','image','phone_number','user_id');
+               if ($request->hasFile('photo'))
+               {
+                       $photo = $request->file('photo');    
+                       $new_name = $photo->getClientOriginalName();
+                       $photo->move(public_path('images'), $new_name);
+                       $request['image'] = $new_name;
+                   // return $new_name;
+               }else{
+
+                       return response()->json(['error'=>'Unauthorised'], 401);
+                   }
+
+           } else {
+               return response()->json(['error' => 'Wrong position'], 200);
+           }
+           // dd('sd');
+           //    return $request;
+          //$postjob = PostJob::create($request->toArray());
+          //$postjob = PostJob::where('id',$request->user_id)->update($request->toArray());
+          
+          $form_data = array(
+            'id' => $request->id,
+            'company_name' => $request->company_name,
+            'term'         => $request->term,    
+            'title'        =>  $request->title,
+            'requirement'  =>  $request->requirement,
+            'experience'   =>  $request->experience,
+            'email'        =>  $request->email,
+            'last_date'    =>  $request->last_date,
+            'address'      =>  $request->address,
+            'phone_number' =>  $request->phone_number,
+            'image'        =>  $new_name
+        ); 
+        //dd($form_data);
+        PostJob::where('id',$id)->update($form_data);
+        $postjob = PostJob::where('id',$id)->get(); 
+         
+        return response()->json($postjob);
+
     }
 
     /**
@@ -127,6 +166,9 @@ class PostJobController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $postjob = PostJob::find($id);
+        $postjob->delete();
+        return response()->json($postjob);
+        $postjob->save();
     }
 }

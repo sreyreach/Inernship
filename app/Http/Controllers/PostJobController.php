@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\PostJob;
+// use Illuminate\Support\Facades\Auth;
+use Auth;
 class PostJobController extends Controller
 {
     /**
@@ -13,8 +15,14 @@ class PostJobController extends Controller
      */
     public function index()
     {
-        $postjob = PostJob::all();
-        return view('\post_job\post_job', compact('postjob'));
+        if(Auth::User()->role == 1){
+            $postjob = PostJob::latest()->paginate(10);
+        }else{
+            $postjob = PostJob::where('user_id', Auth::User()->id)->paginate(10);
+        }
+            
+        return view('\post_job\post_job', compact('postjob'))
+        ->with('i', (request()->input('page',1) -1) *5);
     }
 
     /**
@@ -112,7 +120,7 @@ class PostJobController extends Controller
             'last_date'    =>  'required',
             'address'      =>  'required',
             'phone_number' =>  'required',
-            'image'  => 'required|image|max:2048',
+            'image'  => 'required|image',
         ]);
         $image = $request->file('image');
 

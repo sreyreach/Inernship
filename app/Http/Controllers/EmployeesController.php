@@ -1,11 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use Illuminate\Http\Request;
 use App\User;
 class EmployeesController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,10 +22,15 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $user = User::where('role',3)->get();
+        if(Auth::User()->role == 1){
+            $user = User::where('role',3)->paginate(10);
+        }else{
+            $user = User::where('role',3)->where('id',Auth::User()->id)->paginate(10);
+        }
         return view('\employees\employees', compact('user'));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -40,7 +54,7 @@ class EmployeesController extends Controller
             'last_name'    => 'required',
             'birth'        => 'required',
             'email'        => 'required|unique:App\User,email',
-            'phone_number' => 'numeric',
+            'phone_number' => 'required|numeric|unique:App\User',
             
         ]);
     

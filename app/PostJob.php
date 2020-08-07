@@ -10,7 +10,7 @@ class PostJob extends Model
 
     protected $fillable = [
         'company_name','title','term','requirement',
-        'email','address','image','phone_number','user_id'
+        'email','address','image','phone_number','user_id','last_date'
        
     ];
 

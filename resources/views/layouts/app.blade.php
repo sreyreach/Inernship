@@ -87,48 +87,50 @@
             <div id="logo">
                 <img src="{{ URL::to('/images/jobseeker.png') }}"/>
             </div>
-            {{--@if( Auth::user()->role == "1" )--}}
+            @if( Auth::user()->role == "1" )
             <a href="{{ route('user.index') }}">
                 <div id="admin-profile">
                     <img class="admin-avatar" src="/images/avatar.png"/>
                     <h2 class="admin-name">Admin</h2>
                 </div>
             </a>
-            {{-- @endif --}}
-            {{--@if( Auth::user()->role == "2" ||  Auth::user()->role == "1" )--}} 
+            @endif
+            @if( Auth::user()->role == "2" || Auth::user()->role == "1" )
             <a href="{{ route('employer.index') }}">
-                <div id="users" class="item">
+                <div id="users" class="item ">
                     <img class="item-icon" src="/images/employers.png"/>
                     <h2 class="item-title">Employer</h2>
                 </div>
             </a>
-           {{-- @endif--}}
-           {{-- @if( Auth::user()->role == "3" ||  Auth::user()->role == "1")--}}
+           @endif
+           @if( Auth::user()->role ==  "3" || Auth::user()->role == "1")
             <a href="{{ route('employees.index')}}">
-                <div id="materials" class="item">
+                <div id="materials" class="item ">
                     <img class="item-icon" src="/images/users.png"/>
                     <h2 class="item-title">Employees</h2>
                 </div>
             </a>
-           {{--  @endif --}}
-
+            @endif
+            @if( Auth::user()->role == "2" || Auth::user()->role == "1")
             <a href="{{ route('post_job.index')}}">
-                <div id="classes" class="item">
+                <div id="classes" class="item ">
                     <img class="item-icon" src="/images/class.png"/>
                     <h2 class="item-title">Post Job</h2>
                 </div>
             </a>
-
+            @endif
+            @if( Auth::user()->role == "3" || Auth::user()->role == "1")
             <a href="{{ route('post_cv.index')}}">
-                <div id="messages" class="item">
+                <div id="messages" class="item ">
                     <img class="item-icon" src="/images/cv.png"/>
                     <h2 class="item-title">Post CV</h2>
                 </div>
             </a>
+            @endif
         </div>
         <div id="right">
             <div id="topbar">
-                <form method="GET" action="">
+                <form method="GET" action="/search">
                     <input id="searchbar" type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome"/>
                 </form>
                 <img id="dotdotdot" src="/images/dotdotdot.png">
@@ -138,5 +140,6 @@
         </main>
  </form>
     <div>
+
 </body>
 </html>

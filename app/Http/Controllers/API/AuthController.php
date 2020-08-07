@@ -25,6 +25,14 @@ class AuthController extends Controller
 
     public function register (Request $request) {
 
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'required|numeric|unique:App\User',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 'please check your phone number again'], 200);
+        }
+
         $credential = $request->only('first_name','last_name','email', 'password','company_name', 
         'adress', 'birth');
         //return $credential;
@@ -40,9 +48,6 @@ class AuthController extends Controller
         $response = ['api_token' => $api_token];
         return response()->json(['Authorisation', $api_token]);   
     }
-    
-   
-
 }
 
    

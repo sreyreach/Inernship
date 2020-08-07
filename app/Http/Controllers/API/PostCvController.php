@@ -51,27 +51,28 @@ class PostCvController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => 'Wrong extension'], 200);
+            return response()->json(['error' => 'The file must be a filename.pdf'], 200);
         }
 
         $user = User::where('id', $request->user_id)->select('role')->first();
-        //dd($role->role);
+      //  dd($role->role);
         if ($user->role == '3') {
 
             $credential = $request->only('pdf', 'title', 'experience', 'email', 'phone_number', 'user_id');
 
-            // return $credential;
+            //return $credential;
             if ($request->hasFile('file')) {
                 $value = $request->file('file');
                 $pdName = $value->getClientOriginalName();
                 $value->move(public_path('pdfs'), $pdName);
                 $request['pdf'] = $pdName;
+               // return $pdName;
             } 
             else {
                 return response()->json(['error' => 'Unauthorised'], 401);
             }
 
-            // return $request;
+            //return $request;
             //return;
           
         } else {
@@ -114,7 +115,49 @@ class PostCvController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:pdf',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 'The file must be a filename.pdf'], 200);
+        }
+
+        $user = User::where('id', $request->user_id)->select('role')->first();
+      //  dd($role->role);
+        if ($user->role == '3') {
+
+            $credential = $request->only('pdf', 'title', 'experience', 'email', 'phone_number', 'user_id');
+
+            //return $credential;
+            if ($request->hasFile('file')) {
+                $value = $request->file('file');
+                $pdName = $value->getClientOriginalName();
+                $value->move(public_path('pdfs'), $pdName);
+                $request['pdf'] = $pdName;
+               // return $pdName;
+            } 
+            else {
+                return response()->json(['error' => 'Unauthorised'], 401);
+            }
+
+            //return $request;
+            //return;
+          
+        } else {
+            return response()->json(['error' => 'Wrong position'], 200);
+        }
+        $form_data = array(
+            'title'  =>  $request->title,
+            'experience'  =>  $request->experience,
+            'email' => $request->email,
+            'phone_number'=> $request->phone_number,
+            'pdf'  => $pdName,
+        );
+        //dd($postcv);
+        PostCv::where('id',$id)->update($form_data);
+        $postjob = PostCv::where('id',$id)->get(); 
+        return response()->json($postjob);
     }
 
     /**
@@ -125,6 +168,10 @@ class PostCvController extends Controller
      */
     public function destroy($id)
     {
-        //
+            $postcv = PostCv::find($id);
+            $postcv->delete();
+            return response()->json($postcv);
+            $postcv->save();
+    
     }
 }
