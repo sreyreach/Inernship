@@ -58,7 +58,7 @@ class PostCvController extends Controller
       //  dd($role->role);
         if ($user->role == '3') {
 
-            $credential = $request->only('pdf', 'title', 'experience', 'email', 'phone_number', 'user_id');
+            $credential = $request->only('pdf', 'title', 'experience', 'description', 'user_id');
 
             //return $credential;
             if ($request->hasFile('file')) {
@@ -127,7 +127,7 @@ class PostCvController extends Controller
       //  dd($role->role);
         if ($user->role == '3') {
 
-            $credential = $request->only('pdf', 'title', 'experience', 'email', 'phone_number', 'user_id');
+            $credential = $request->only('pdf', 'title', 'experience', 'description', 'user_id');
 
             //return $credential;
             if ($request->hasFile('file')) {
@@ -148,11 +148,10 @@ class PostCvController extends Controller
             return response()->json(['error' => 'Wrong position'], 200);
         }
         $form_data = array(
-            'title'  =>  $request->title,
+            'title'       =>  $request->title,
             'experience'  =>  $request->experience,
-            'email' => $request->email,
-            'phone_number'=> $request->phone_number,
-            'pdf'  => $pdName,
+            'description' => $request->description,
+            'pdf'         => $pdName,
         );
         //dd($postcv);
         PostCv::where('id',$id)->update($form_data);

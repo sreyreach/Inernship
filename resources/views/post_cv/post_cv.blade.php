@@ -25,8 +25,7 @@
                     <th  style="text-align:center" width="10%">PDF</th>
                     <th  style="text-align:center" width="15%">Title</th>
                     <th  style="text-align:center" width="10%">Experience</th>
-                    <th  style="text-align:center" width="15%">description</th>
-                    <th  style="text-align:center" width="10%">Phone Number</th>
+                    <th  style="text-align:center" width="15%">Description</th>
                     <th  style="text-align:center" width="20%">Action</th>
                 </tr>
             </thead>
@@ -38,9 +37,7 @@
                         </td>
                         <td >{{ $data->title }}</td>
                         <td>{{ $data->experience }}</td>
-                        <td >{{ $data->email }}</td>
-                        <td >{{ $data->phone_number }}</td>
-                       
+                        <td >{{ $data->description }}</td>
                         <td> 
                             <div>
                                 <a href="{{ route('post_cv.show', $data)}}" class="btn_btn-default" >Show</a>

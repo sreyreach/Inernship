@@ -46,9 +46,8 @@ class PostCvController extends Controller
         $request->validate([
             'title'       =>  'required',
             'experience'  =>  'required',
-            'email'       => 'required',
-            'phone_number'=>'required',
-            'file'        => 'file',
+            'description' =>  'required',
+            'file'        =>  'file',
         ]);
 
         $pd = $request->file('file');
@@ -58,8 +57,7 @@ class PostCvController extends Controller
         $form_data = array(
             'title'  =>  $request->title,
             'experience'  =>  $request->experience,
-            'email' => $request->email,
-            'phone_number'=> $request->phone_number,
+            'description' => $request->description,
             'pdf'  => $pdName,
             // 'pdf' => ''
         );

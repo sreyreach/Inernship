@@ -9,7 +9,7 @@ class PostCv extends Model
     protected $table = "postcv";
 
     protected $fillable = [
-        'pdf','title','experience','email', 'phone_number','user_id',
+        'pdf','title','experience','description','user_id',
     ];
 
     public function employees(){

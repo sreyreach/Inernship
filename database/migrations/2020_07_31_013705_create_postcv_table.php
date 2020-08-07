@@ -18,8 +18,7 @@ class CreatePostcvTable extends Migration
             $table->string('pdf');
             $table->string('title');
             $table->string('experience');
-            $table->string('email');
-            $table->string('phone_number');
+            $table->string('description');
              $table->unsignedBigInteger('user_id')->unsigned();
              $table->foreign('user_id')
                     ->references('id')->on('users')

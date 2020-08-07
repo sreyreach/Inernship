@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/user', 'API\UserController@index');
+Route::get('/user/{id}','API\UserController@show');
+
 Route::post('/login', 'API\AuthController@login');
 Route::post('/register', 'API\AuthController@register');
 
@@ -31,7 +34,8 @@ Route::delete('/postcv/delete/{id}','API\PostCvController@destroy');
 
 
 Route::group(["middleware" => ['auth:api']], function () {
-    Route::get('/user', 'API\UserController@index');
+    // Route::get('/user', 'API\UserController@index');
+    // Route::get('/user/{id}','API\UserController@show');
 
     // Route::resource('postjob', 'API\PostJobController');
     // Route::post('/postjob/create','API\PostJobController@store');

@@ -27,10 +27,11 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), [
             'phone_number' => 'required|numeric|unique:App\User',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => 'please check your phone number again'], 200);
+            return response()->json(['error' => 'please chack your phone number and you password again'], 200);
         }
 
         $credential = $request->only('first_name','last_name','email', 'password','company_name', 
@@ -48,6 +49,8 @@ class AuthController extends Controller
         $response = ['api_token' => $api_token];
         return response()->json(['Authorisation', $api_token]);   
     }
+
+     
 }
 
    
