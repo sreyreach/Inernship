@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', 'API\AuthController@login');
 Route::post('/register', 'API\AuthController@register');
 
-Route::get('/user', 'API\UserController@index');
-Route::get('/user/{id}','API\UserController@show');
+// Route::get('/user', 'API\UserController@index');
+// Route::get('/user/{id}','API\UserController@show');
 
 // Route::post('/postjob/create','API\PostJobController@store');
 // Route::post('/postjob/update/{id}','API\PostJobController@update'); 
@@ -48,7 +48,7 @@ Route::group(["middleware" => ['auth:api']], function () {
     Route::post('/postcv/update/{id}','API\PostCvController@update');   
     Route::delete('/postcv/delete/{id}','API\PostCvController@destroy');  
 
-    Route::get('/postjob/find/{id}','API\PostJobController@find');
+    // Route::get('/postjob/find/{id}','API\PostJobController@find');
 
 
 });
