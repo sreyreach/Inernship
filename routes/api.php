@@ -23,14 +23,15 @@ Route::post('/register', 'API\AuthController@register');
 // Route::post('/postjob/update/{id}','API\PostJobController@update'); 
 // Route::delete('/postjob/delete/{id}','API\PostJobController@destroy'); 
 // Route::get('/postjob/show/{id}','API\PostJobController@show');
-// Route::get('/postjob/read','API\PostJobController@index');
-// Route::get('/postjob/getdownload/{id}','API\PostJobController@getDownload'); 
+//Route::get('/postjob/read','API\PostJobController@index');
+Route::get('/postjob/getdownload/{id}','API\PostJobController@getDownload'); 
 
 // Route::post('/postcv/create','API\PostCvController@store');
 // Route::get('/postcv/show','API\PostCvController@show');
 // Route::post('/postcv/update/{id}','API\PostCvController@update');   
 // Route::delete('/postcv/delete/{id}','API\PostCvController@destroy');  
-// Route::get('/postcv/showPdf/{id}','API\PostCvController@showPDF'); 
+//Route::get('/postcv/read','API\PostCvController@index');
+Route::get('/postcv/showPdf/{id}','API\PostCvController@showPDF'); 
 
 
 Route::group(["middleware" => ['auth:api']], function () {
@@ -46,10 +47,8 @@ Route::group(["middleware" => ['auth:api']], function () {
     Route::post('/postcv/create','API\PostCvController@store');
     Route::get('/postcv/show','API\PostCvController@show');
     Route::post('/postcv/update/{id}','API\PostCvController@update');   
-    Route::delete('/postcv/delete/{id}','API\PostCvController@destroy');  
-
-    // Route::get('/postjob/find/{id}','API\PostJobController@find');
-
+    Route::delete('/postcv/delete/{id}','API\PostCvController@destroy'); 
+    Route::get('/postcv/read','API\PostCvController@index'); 
 
 });
 

@@ -21,7 +21,7 @@ class PostJobController extends Controller
      */
     public function index()
     {
-        $postjob = DB::table('postjob')->get();
+        $postjob = DB::table('postjob')->latest('id')->get();
         return response()->json($postjob);
     }
 

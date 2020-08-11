@@ -10,6 +10,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Auth;
+use DB;
 use App\User;
 use App\PostCv;
 
@@ -24,7 +25,8 @@ class PostCvController extends Controller
      */
     public function index()
     {
-        //
+        $postcv = DB::table('postcv')->latest('id')->get();
+        return response()->json($postcv);
     }
 
     /**
