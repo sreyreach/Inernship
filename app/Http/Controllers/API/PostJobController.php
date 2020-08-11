@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Auth;
+use DB;
 use App\User;
 use App\PostJob;
 
@@ -20,7 +21,7 @@ class PostJobController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -46,7 +47,7 @@ class PostJobController extends Controller
          //dd($request);
             if ($user->role == '2') {
                 $credential = $request->only( 'company_name','title','term','requirement',
-                'email','address','image','phone_number','user_id');
+                'email','address','image','phone_number','user_id','description');
                     
                     //return $credential;
                     // if (Auth::attempt($credential)) 
@@ -57,7 +58,7 @@ class PostJobController extends Controller
                 if ($request->hasFile('photo'))
                 {
                         $photo = $request->file('photo');    
-                        $new_name = $photo->getClientOriginalName();
+                        $new_name = rand() . '.' . $photo->getClientOriginalName();
                         $photo->move(public_path('images'), $new_name);
                         $request['image'] = $new_name;
                     //  return $new_name;
@@ -82,10 +83,11 @@ class PostJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $postjob = PostJob::latest('id')->get();
-
+        
+         $postjob = PostJob::latest('id')->where('id',$id)->get();
+       // $postjob = DB::table('postjob')->where('id','=',$id)->get();
         return response()->json($postjob);
     }
 
@@ -116,11 +118,11 @@ class PostJobController extends Controller
         //dd($request);
            if ($user->role == '2') {
                $credential = $request->only( 'company_name','term','title','requirement',
-               'email','address','last_date','image','phone_number','user_id');
+               'email','address','last_date','image','phone_number','user_id','experience');
                if ($request->hasFile('photo'))
                {
                        $photo = $request->file('photo');    
-                       $new_name = $photo->getClientOriginalName();
+                       $new_name = rand() . '.' .$photo->getClientOriginalName();
                        $photo->move(public_path('images'), $new_name);
                        $request['image'] = $new_name;
                    // return $new_name;
@@ -171,4 +173,36 @@ class PostJobController extends Controller
         return response()->json($postjob);
         $postjob->save();
     }
+    public function find($id)
+    {
+       
+        $postjob = PostJob::findOrFail($id);
+
+        return response()->json($postjob);
+    }
+    public function showImage($id)
+    {
+
+        $filename = DB::table('postjob')
+                         ->select(DB::raw('image'))
+                         ->where('id','=', $id)
+                         ->get();
+    
+        $name = $filename[0]->image;
+    
+        return response()->download("images/$name");
+    }
+
+    public function getDownload($id)
+    {
+        // $user = User::findOrFail($id)->first;
+        // return response()->json($user,200);
+        $user = PostJob::findOrFail($id);
+
+        $file_path = public_path('images/'.$user->image);
+        return response()->download($file_path);
+
+       // return response()->json($user->image);
+    }
+
 }

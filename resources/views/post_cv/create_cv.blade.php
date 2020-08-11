@@ -32,10 +32,11 @@
                 <input type="text" name="email" value="{{ old('email') }}" class="form-control input-lg"/>
             </div>
 
-            <label class="class= text1">Enter Phone Number</label>
+            <label class="class= text1">Enter Description</label>
             <div class="col1">
-                <input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control input-lg"/>
+                <input type="text" name="description" value="{{ old('description') }}" class="form-control input-lg"/>
             </div>
+
             
 
             <div class="form-group">

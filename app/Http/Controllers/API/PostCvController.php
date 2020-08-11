@@ -6,11 +6,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Auth;
 use App\User;
 use App\PostCv;
+
+
 
 class PostCvController extends Controller
 {
@@ -63,7 +66,7 @@ class PostCvController extends Controller
             //return $credential;
             if ($request->hasFile('file')) {
                 $value = $request->file('file');
-                $pdName = $value->getClientOriginalName();
+                $pdName = rand() . '.' .$value->getClientOriginalName();
                 $value->move(public_path('pdfs'), $pdName);
                 $request['pdf'] = $pdName;
                // return $pdName;
@@ -132,7 +135,7 @@ class PostCvController extends Controller
             //return $credential;
             if ($request->hasFile('file')) {
                 $value = $request->file('file');
-                $pdName = $value->getClientOriginalName();
+                $pdName = rand() . '.' .$value->getClientOriginalName();
                 $value->move(public_path('pdfs'), $pdName);
                 $request['pdf'] = $pdName;
                // return $pdName;
@@ -173,4 +176,26 @@ class PostCvController extends Controller
             $postcv->save();
     
     }
+    // public function showPDF($id)
+    // {
+    
+    //     $filename = DB::table('postcv')
+    //                      ->select(DB::raw('pdf'))
+    //                      ->where('id','=', $id)
+    //                      ->get();
+    
+    //     $name = $filename[0]->pdf;
+    
+    //     return response()->download("pdfs/$name");
+    // }
+
+    public function showPDF($id)
+    {
+        $user = PostCv::findOrFail($id);
+
+        $file_path = public_path('pdfs/'.$user->pdf);
+        return response()->download($file_path);
+    }
+
+   
 }

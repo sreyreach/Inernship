@@ -15,6 +15,9 @@ class UserController extends Controller
     {
        // $applicants = Applicant::where('id', '!=', Auth::guard('applicant')->user()->id)->get();
         //return view('applicant.index', compact('applicants'));
+        // $users = DB::table('users')->paginate(10);
+
+        // return view('user.index', ['users' => $users]);
 
        $user = User::where('role',1)->get();
        return view('\admin\admin', compact('user'));

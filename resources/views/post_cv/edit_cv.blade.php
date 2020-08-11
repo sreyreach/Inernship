@@ -29,14 +29,9 @@
             <input type="text" name=" experience" value="{{ $data->experience }}" class="form-control input-lg"/>
         </div>
 
-        <label class="class= text1">Enter Email</label>
+        <label class="class= text1">Enter Description</label>
         <div class="col1">
-            <input type="text" name="email" value="{{ $data->email }}" class="form-control input-lg"/>
-        </div>
-
-        <label class="class= text1">Enter Phone Number</label>
-        <div class="col1">
-            <input type="text" name="phone_number" value="{{ $data->phone_number }}" class="form-control input-lg"/>
+            <input type="text" name="description" value="{{ $data->description }}" class="form-control input-lg"/>
         </div>
         
 

@@ -130,9 +130,6 @@
         </div>
         <div id="right">
             <div id="topbar">
-                <form method="GET" action="/search">
-                    <input id="searchbar" type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome"/>
-                </form>
                 <img id="dotdotdot" src="/images/dotdotdot.png">
             </div>
             <main class="py-4">

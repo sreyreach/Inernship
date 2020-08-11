@@ -156,4 +156,13 @@ class PostJobController extends Controller
         $data->delete();
         return redirect('post_job')->with('success','Data is successfully deleted!');
     }
+
+    public function getDownload($id)
+    {
+        $data = PostJob::findOrFail($id);
+        return response()->json($data,200);
+    }
+
+   
+
 }

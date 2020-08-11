@@ -30,7 +30,16 @@ class EmployeesController extends Controller
         return view('\employees\employees', compact('user'));
     }
 
-    
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        
+        $user = User::where('role',3)->where('first_name', 'like', '%'.$search.'%')
+        ->orWhere('last_name', 'like', '%'.$search.'%')
+        ->paginate(10);
+        return view('\employees\employees', compact('user'))
+                ->with('i', (request()->input('page',1) -1) *5);
+    } 
     /**
      * Show the form for creating a new resource.
      *
