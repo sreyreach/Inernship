@@ -13,50 +13,43 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/user', 'API\UserController@index');
-Route::get('/user/{id}','API\UserController@show');
-
 Route::post('/login', 'API\AuthController@login');
 Route::post('/register', 'API\AuthController@register');
 
+Route::get('/user', 'API\UserController@index');
+Route::get('/user/{id}','API\UserController@show');
 
-Route::resource('postjob', 'API\PostJobController');
-Route::post('/postjob/create','API\PostJobController@store');
-Route::post('/postjob/update/{id}','API\PostJobController@update'); 
-Route::delete('/postjob/delete/{id}','API\PostJobController@destroy'); 
-Route::get('/postjob/show/{id}','API\PostJobController@show');
-Route::get('/postjob/getdownload/{id}','API\PostJobController@getDownload'); 
+// Route::post('/postjob/create','API\PostJobController@store');
+// Route::post('/postjob/update/{id}','API\PostJobController@update'); 
+// Route::delete('/postjob/delete/{id}','API\PostJobController@destroy'); 
+// Route::get('/postjob/show/{id}','API\PostJobController@show');
+// Route::get('/postjob/read','API\PostJobController@index');
+// Route::get('/postjob/getdownload/{id}','API\PostJobController@getDownload'); 
 
-
-Route::resource('postcv', 'API\PostCvController');
-Route::post('/postcv/create','API\PostCvController@store');
-Route::get('/postcv/show','API\PostCvController@show');
-Route::post('/postcv/update/{id}','API\PostCvController@update');   
-Route::delete('/postcv/delete/{id}','API\PostCvController@destroy'); 
-Route::get('/postcv/showPdf/{id}','API\PostCvController@showPDF'); 
+// Route::post('/postcv/create','API\PostCvController@store');
+// Route::get('/postcv/show','API\PostCvController@show');
+// Route::post('/postcv/update/{id}','API\PostCvController@update');   
+// Route::delete('/postcv/delete/{id}','API\PostCvController@destroy');  
+// Route::get('/postcv/showPdf/{id}','API\PostCvController@showPDF'); 
 
 
 Route::group(["middleware" => ['auth:api']], function () {
     // Route::get('/user', 'API\UserController@index');
     // Route::get('/user/{id}','API\UserController@show');
 
-    // Route::resource('postjob', 'API\PostJobController');
-    // Route::post('/postjob/create','API\PostJobController@store');
-    // Route::get('/postjob/show','API\PostJobController@show');
-    // Route::post('/postjob/update/{id}','API\PostJobController@update'); 
-    // Route::delete('/postjob/delete/{id}','API\PostJobController@destroy');  
+    Route::post('/postjob/create','API\PostJobController@store');
+    Route::post('/postjob/update/{id}','API\PostJobController@update'); 
+    Route::delete('/postjob/delete/{id}','API\PostJobController@destroy'); 
+    Route::get('/postjob/show/{id}','API\PostJobController@show');
+    Route::get('/postjob/read','API\PostJobController@index');
 
-    // Route::resource('postcv', 'API\PostCvController');
-    // Route::post('/postcv/create','API\PostCvController@store');
-    // Route::get('/postcv/show','API\PostCvController@show');
-    // Route::post('/postcv/update/{id}','API\PostCvController@update');   
-    // Route::delete('/postcv/delete/{id}','API\PostCvController@destroy');  
+    Route::post('/postcv/create','API\PostCvController@store');
+    Route::get('/postcv/show','API\PostCvController@show');
+    Route::post('/postcv/update/{id}','API\PostCvController@update');   
+    Route::delete('/postcv/delete/{id}','API\PostCvController@destroy');  
 
     Route::get('/postjob/find/{id}','API\PostJobController@find');
 
 
 });
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// }); 'API\AuthController@login'

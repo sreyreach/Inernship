@@ -21,7 +21,8 @@ class PostJobController extends Controller
      */
     public function index()
     {
-       
+        $postjob = DB::table('postjob')->get();
+        return response()->json($postjob);
     }
 
     /**
@@ -86,10 +87,11 @@ class PostJobController extends Controller
     public function show($id)
     {
         
-         $postjob = PostJob::latest('id')->where('id',$id)->get();
+         $postjob = PostJob::find($id);
        // $postjob = DB::table('postjob')->where('id','=',$id)->get();
         return response()->json($postjob);
     }
+   
 
     /**
      * Show the form for editing the specified resource.
