@@ -17,9 +17,10 @@ class AuthController extends Controller
         if ('Auth'::attempt($credential)) {
             $api_token = str::random(60);
             User::where('id', 'Auth'::user()->id)->update(['api_token' => $api_token]);
-            return response()->json(['token'=> $api_token,'success'=>1,'id'=>'Auth'::user()->id]);
+            $user = User::findOrFail('Auth'::user()->id);
+            return response()->json(['success'=>1,'user'=>$user]);
         }else{
-            return response()->json(['token'=>'Unauthorised','success'=>0,'id'=>null], 401); 
+            return response()->json(['success'=>0,'user'=>null], 401); 
         }
     }
 

@@ -207,4 +207,9 @@ class PostJobController extends Controller
        // return response()->json($user->image);
     }
 
+    public function userId($id){
+        $postjob = PostJob::where('user_id', $id)->get(); 
+        return response()->json($postjob);
+    }
+
 }

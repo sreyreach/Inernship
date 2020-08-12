@@ -94,9 +94,9 @@ class PostCvController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $postcv = PostCv::latest('id')->get();
+        $postcv = PostCv::find($id);
         return response()->json($postcv);
     }
 
@@ -160,8 +160,8 @@ class PostCvController extends Controller
         );
         //dd($postcv);
         PostCv::where('id',$id)->update($form_data);
-        $postjob = PostCv::where('id',$id)->get(); 
-        return response()->json($postjob);
+        $postcv = PostCv::where('id',$id)->get(); 
+        return response()->json($postcv);
     }
 
     /**
@@ -197,6 +197,11 @@ class PostCvController extends Controller
 
         $file_path = public_path('pdfs/'.$user->pdf);
         return response()->download($file_path);
+    }
+
+    public function userId($id){
+        $postcv = PostCv::where('user_id', $id)->get(); 
+        return response()->json($postcv);
     }
 
    

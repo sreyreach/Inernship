@@ -19,8 +19,8 @@ class CreatePostcvTable extends Migration
             $table->string('title');
             $table->string('experience');
             $table->string('description');
-             $table->unsignedBigInteger('user_id')->unsigned();
-             $table->foreign('user_id')
+            $table->unsignedBigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
                     ->references('id')->on('users')
                     ->onDelete('cascade');
             $table->timestamps();
