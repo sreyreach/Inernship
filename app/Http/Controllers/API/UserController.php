@@ -43,8 +43,9 @@ class UserController extends Controller
             'company_name' => $request->company_name,
             'birth'        => $request->birth,
             'phone_number' => $request->phone_number,
+            'address'      => $request->address,
             'email'        => $request->email,
-            'role'        => $request->role
+            'role'         => $request->role
         ); 
         User::where('id',$id)->update($form_data);
         $user = User::where('id',$id)->get(); 

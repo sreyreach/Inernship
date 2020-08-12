@@ -212,4 +212,10 @@ class PostJobController extends Controller
         return response()->json($postjob);
     }
 
+    public function readTypeJob($title ,Request $request){
+        // $stu = PostJob::where('title',$title)->get();
+        $stu = PostJob::where('title', 'like', '%'.$title.'%')->get();
+        return response()->json($stu);
+    }
+
 }

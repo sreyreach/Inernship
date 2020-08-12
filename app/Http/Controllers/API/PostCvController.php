@@ -203,6 +203,15 @@ class PostCvController extends Controller
         $postcv = PostCv::where('user_id', $id)->get(); 
         return response()->json($postcv);
     }
+    // $datas = User::where('first_name', 'like', '%'.$search.'%')
+    // ->orWhere('last_name', 'like', '%'.$search.'%')
+    // ->paginate(10);
+
+    public function readTypeCv($title ,Request $request){
+        // $stu = PostCv::where('title',$title)->get();
+        $stu = PostCv::where('title', 'like', '%'.$title.'%')->get();
+        return response()->json($stu);
+     }
 
    
 }
