@@ -70,8 +70,8 @@ Route::group(["middleware" => ['auth:api']], function () {
     Route::post('/postcv/update/{id}','API\PostCvController@update');   
     Route::delete('/postcv/delete/{id}','API\PostCvController@destroy'); 
     Route::get('/postcv/read','API\PostCvController@index'); 
-   Route::get('/postjob/user/{id}','API\PostJobController@userId');
-   Route::get('/postcv/readtypecv/{title}','API\PostCvController@readTypeCv');
+    Route::get('/postjob/user/{id}','API\PostJobController@userId');
+    Route::get('/postcv/readtypecv/{title}','API\PostCvController@readTypeCv');
 
 });
 

@@ -36,11 +36,11 @@ class AuthController extends Controller
         }
 
         $credential = $request->only('first_name','last_name','email', 'password','company_name', 
-        'adress', 'birth');
+        'address', 'birth');
         //return $credential;
         if ('Auth'::attempt($credential)) 
         {
-             return response()->json(['error'=>'Unauthorised'], 401);
+             return response()->json(['success'=>0,'user'=>null], 401);
         }
         $request['password'] = Hash::make($request['password']);
         $api_token = str::random(60);
@@ -48,7 +48,7 @@ class AuthController extends Controller
         $user = User::create($request->toArray());            
         $api_token = $user->createToken('Laravel Password Grant Client')->accessToken;
         $response = ['api_token' => $api_token];
-        return response()->json(['Authorisation', $api_token]);   
+        return response()->json(['success'=>1,'user'=>$user]);   
     }
 
      
