@@ -38,6 +38,7 @@ class EmployerController extends Controller
                  ->with('i', (request()->input('page',1) -1) *5);
     }
 
+    
     public function search(Request $request)
     {
         $search = $request->search;

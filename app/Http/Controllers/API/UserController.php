@@ -54,8 +54,12 @@ class UserController extends Controller
     //     return response()->json($user_data);
     // }
 
-    public function updateProfile($id, Request $request){
+    public function updateProfile( Request $request){
         $credential = $request->only( 'profile');
+        if ('Auth'::attempt($credential)) 
+        {
+            return response()->json(['error'=>'please check fail'], 401);
+        } 
         if ($request->hasFile('photo'))
         {
                 $photo = $request->file('photo');    
@@ -71,10 +75,22 @@ class UserController extends Controller
             'profile' => $new_name,
         );
 
-        User::where('id',$id)->update($form_data);
-        $user = User::findOrFail($id); 
+        User::where('id',$request->id)->update($form_data);
+        $user = User::findOrFail($request->id); 
          
         return response()->json($user);
+    }
+
+    public function getDownloadProfile($id)
+    {
+        // $user = User::findOrFail($id)->first;
+        // return response()->json($user,200);
+        $user = User::findOrFail($id);
+
+        $file_path = public_path('images/'.$user->profile);
+        return response()->download($file_path);
+
+       // return response()->json($user->image);
     }
     
 }

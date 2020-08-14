@@ -25,6 +25,16 @@ class PostCvController extends Controller
         return view('\post_cv\post_cv', compact('postcv'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        
+        $postcv = PostCv::where('title', 'like', '%'.$search.'%')
+        ->paginate(10);
+        return view('\post_cv\post_cv', compact('postcv'))
+                ->with('i', (request()->input('page',1) -1) *5);
+    } 
+
     /**
      * Show the form for creating a new resource.
      *

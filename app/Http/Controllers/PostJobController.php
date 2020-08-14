@@ -24,6 +24,15 @@ class PostJobController extends Controller
         return view('\post_job\post_job', compact('postjob'))
         ->with('i', (request()->input('page',1) -1) *5);
     }
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        
+        $postjob = PostJob::where('title', 'like', '%'.$search.'%')
+        ->paginate(10);
+        return view('\post_job\post_job', compact('postjob'))
+                ->with('i', (request()->input('page',1) -1) *5);
+    } 
 
     /**
      * Show the form for creating a new resource.

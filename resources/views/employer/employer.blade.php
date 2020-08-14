@@ -6,13 +6,12 @@
     @include('message')
     <div class="table-wrapper">
         <div class="table-title">
-          
             <div class="sarch">
                 <form method="GET" action="\search">
                     <input type="text" class="search" name="search" placeholder="Search..."></input>
                     <button class="btn btn-primary">Search</button>
                 </form>
-                <a href="{{ route('employer.create') }}" class="btn btn-success"><i class="materil-icons" titile="Create"></i>
+                <a href="{{ route('post_cv.create')}}" class="btn btn-success"><i class="materil-icons" titile="Create"></i>
                     <span>Add</span>
                 </a>
             </div>
