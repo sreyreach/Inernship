@@ -42,7 +42,7 @@ Route::get('/postjob/getdownload/{id}','PostJobController@getDownload');
 // Route::get('search', 'EmployerController@search');
 // Route::get('/search', 'EmployeesController@search');
 
-Route::get('/search', 'EmployerController@search');
-Route::get('/search', 'EmployeesController@search');
-Route::get('/search', 'PostJobController@search');
-Route::get('/search', 'PostCvController@search');
+Route::get('/search_employer', 'EmployerController@search');
+Route::get('/search_employees', 'EmployeesController@search');
+Route::get('/search_postjob', 'PostJobController@search');
+Route::get('/search_postcv', 'PostCvController@search');

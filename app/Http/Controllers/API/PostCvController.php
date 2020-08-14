@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 use Auth;
 use DB;
 use App\User;
@@ -85,6 +86,8 @@ class PostCvController extends Controller
         }
         //dd($postcv);
         $postcv = PostCv::create($request->toArray());
+        $postcv['createdAt'] = Carbon::parse($postcv->created_at)->format("m d,Y H:i:s");
+        $postcv['updatedAt'] = Carbon::parse($postcv->updated_at)->format("m d,Y H:i:s");
         return response()->json($postcv);
     }
 

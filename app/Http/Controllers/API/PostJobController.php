@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 use Auth;
 use DB;
 use App\User;
@@ -73,7 +74,8 @@ class PostJobController extends Controller
             }
             //    return $request;
            $postjob = PostJob::create($request->toArray()); 
-
+           $postjob['createdAt'] = Carbon::parse($postjob->created_at)->format("m d,Y H:i:s");
+           $postjob['updatedAt'] = Carbon::parse($postjob->updated_at)->format("m d,Y H:i:s");
             return response()->json($postjob);
         }   
     

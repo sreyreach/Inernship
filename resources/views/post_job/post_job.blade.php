@@ -7,7 +7,7 @@
     <div class="table-wrapper">
         <div class="table-title">
             <div class="sarch">
-                <form method="GET" action="\search">
+                <form method="GET" action="\search_postjob">
                     <input type="text" class="search" name="search" placeholder="Search..."></input>
                     <button class="btn btn-primary">Search</button>
                 </form>
