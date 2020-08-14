@@ -75,3 +75,7 @@ Route::group(["middleware" => ['auth:api']], function () {
 
 });
 
+//TestController
+Route::get('/test/user/show','API\TestController@index');
+Route::get('/test/post/byUserId/{id}','API\TestController@show');
+

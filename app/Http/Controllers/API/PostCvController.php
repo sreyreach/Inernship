@@ -61,7 +61,7 @@ class PostCvController extends Controller
 
         $user = User::where('id', $request->user_id)->select('role')->first();
       //  dd($role->role);
-        if ($user->role == '3') {
+        if ($user->role != '2') {
 
             $credential = $request->only('pdf', 'title', 'experience', 'description', 'user_id');
 

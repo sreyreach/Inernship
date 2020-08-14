@@ -46,7 +46,7 @@ class PostJobController extends Controller
             $user = User::where('id', $request->user_id)->select('role')->first();
 
          //dd($request);
-            if ($user->role == '2') {
+            if ($user->role != '3') {
                 $credential = $request->only( 'company_name','title','term','requirement',
                 'email','address','image','phone_number','user_id','description');
                     
