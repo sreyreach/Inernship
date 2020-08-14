@@ -14,7 +14,8 @@ class AddColumnToAdminTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('first_name')->after('id')->nullable();
+            $table->string('profile')->after('id')->nullable();
+            $table->string('first_name')->after('profile')->nullable();
             $table->string('last_name')->after('first_name')->nullable();
             $table->string('phone_number')->unique()->after('email')->nullable();
         });
@@ -28,6 +29,7 @@ class AddColumnToAdminTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('profile');
             $table->dropColumn('first_name');
             $table->dropColumn('last_name');
             $table->dropColum('email');

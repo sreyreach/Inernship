@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\PostCv;
 use App\PostJob;
 use Auth;
+use App\User;
 class PostCvController extends Controller
 {
     /**
@@ -42,29 +43,38 @@ class PostCvController extends Controller
      */
     public function store(Request $request)
     {
-
-        $request->validate([
-            'title'       =>  'required',
-            'experience'  =>  'required',
-            'description' =>  'required',
-            'file'        =>  'file',
-        ]);
-
-        $pd = $request->file('file');
-        $pdName = rand() . '.' . $pd-> getClientOriginalExtension();
-        $pd->move(public_path('pdfs'), $pdName);
-    
-        $form_data = array(
-            'title'  =>  $request->title,
-            'experience'  =>  $request->experience,
-            'description' => $request->description,
-            'pdf'  => $pdName,
-            // 'pdf' => ''
-        );
+        $user = User::where('id', $request->user_id)->select('role')->first();
+        if($user->role == '3')
+        {
+            $request->validate([
+                'title'       =>  'required',
+                'experience'  =>  'required',
+                'description' =>  'required',
+                'user_id'      => 'required',
+                'file'        =>  'file',
+            ]);
+        
+            $pd = $request->file('file');
+            $pdName = rand() . '.' . $pd-> getClientOriginalExtension();
+            $pd->move(public_path('pdfs'), $pdName);
+        }else {
+            return response()->json(['error' => 'Wrong position'], 200);
+        }
+            $form_data = array(
+                'title'  =>  $request->title,
+                'experience'  =>  $request->experience,
+                'description' => $request->description,
+                'user_id'      =>  $request->user_id,
+                'pdf'  => $pdName,
+                // 'pdf' => ''
+            );
+        
+        
         // dd($form_data);
     
         PostCv::create($form_data);
         return redirect('post_cv')->with('success', 'Data Added successfully!');
+    
     }
 
     /**

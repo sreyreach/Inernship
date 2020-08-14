@@ -61,6 +61,11 @@
             <div class="col1">
                 <input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control input-lg"/>
             </div>
+
+            <label class="class= text1">Enter Ueser id post</label>
+            <div class="col1">
+                <input type="text" name="user_id" value="{{ old('user_id') }}" class="form-control input-lg"/>
+            </div>
             
 
             <div class="form-group">

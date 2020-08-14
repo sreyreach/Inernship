@@ -37,6 +37,11 @@
                 <input type="text" name="description" value="{{ old('description') }}" class="form-control input-lg"/>
             </div>
 
+            <label class="class= text1">Enter User id post</label>
+            <div class="col1">
+                <input type="text" name="user_id" value="{{ old('user_id') }}" class="form-control input-lg"/>
+            </div>
+
             
 
             <div class="form-group">

@@ -43,6 +43,9 @@ class PostJobController extends Controller
      */
     public function store(Request $request)
     {
+        $user = User::where('id', $request->user_id)->select('role')->first();
+        if($user->role == '2')
+        {
         $request->validate([
             'company_name' => 'required',
             'term'         => 'required',
@@ -53,13 +56,16 @@ class PostJobController extends Controller
             'last_date'    =>  'required',
             'address'      =>  'required',
             'phone_number' =>  'required',
+            'user_id'      =>  'required',
             'image'  => 'required|image|max:2048',
         ]);
         
         $image = $request->file('image');
         $new_name = rand() . '.' . $image-> getClientOriginalExtension();
         $image->move(public_path('images'), $new_name);
-    
+        }else {
+            return response()->json(['error' => 'Wrong position'], 200);
+        }
         $form_data = array(
             'company_name' => $request->company_name,
             'term'         => $request->term,    
@@ -70,7 +76,8 @@ class PostJobController extends Controller
             'last_date'    =>  $request->last_date,
             'address'      =>  $request->address,
             'phone_number' =>  $request->phone_number,
-            'image'        =>  $new_name
+            'user_id'      =>  $request->user_id,
+            'image'        =>  $new_name,
         );
     
         PostJob::create($form_data);

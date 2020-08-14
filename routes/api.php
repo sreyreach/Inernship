@@ -19,6 +19,7 @@ Route::post('/register', 'API\AuthController@register');
 Route::get('/user', 'API\UserController@index');
 Route::get('/user/{id}','API\UserController@show');
 Route::post('/user/update/{id}','API\UserController@update');
+Route::post('/user/updateprofile/{id}','API\UserController@updateProfile');
 
 // Route::post('/postjob/create','API\PostJobController@store');
 // Route::post('/postjob/update/{id}','API\PostJobController@update'); 
