@@ -126,13 +126,6 @@ class PostCvController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'file' => 'required|mimes:pdf',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => 'The file must be a filename.pdf'], 200);
-        }
 
         $user = User::where('id', $request->user_id)->select('role')->first();
       //  dd($role->role);
@@ -142,6 +135,13 @@ class PostCvController extends Controller
 
             //return $credential;
             if ($request->hasFile('file')) {
+                $validator = Validator::make($request->all(), [
+                    'file' => 'required|mimes:pdf',
+                ]);
+        
+                if ($validator->fails()) {
+                    return response()->json(['error' => 'The file must be a filename.pdf'], 200);
+                }
                 $value = $request->file('file');
                 $pdName = rand() . '.' .$value->getClientOriginalName();
                 $value->move(public_path('pdfs'), $pdName);
@@ -149,7 +149,15 @@ class PostCvController extends Controller
                // return $pdName;
             } 
             else {
-                return response()->json(['error' => 'Unauthorised'], 401);
+                $form_data = array(
+                    'title'       =>  $request->title,
+                    'experience'  =>  $request->experience,
+                    'description' => $request->description,
+                    'pdf'         => $request->pdf,
+                );
+                PostCv::where('id',$id)->update($form_data);
+                $postcv = PostCv::where('id',$id)->get(); 
+                return response()->json($postcv);
             }
 
             //return $request;
