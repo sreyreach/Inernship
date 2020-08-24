@@ -27,7 +27,8 @@ class EmployeesController extends Controller
         }else{
             $user = User::where('role',3)->where('id',Auth::User()->id)->paginate(10);
         }
-        return view('\employees\employees', compact('user'));
+        return view('\employees\employees', compact('user'))
+                ->with('i', (request()->input('page',1) -1) *5);
     }
 
     public function search(Request $request)

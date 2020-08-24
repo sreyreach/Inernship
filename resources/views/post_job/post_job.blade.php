@@ -60,6 +60,7 @@
                     @endforeach
             </tbody>
         </table>
+        {{ $postjob->links() }}
         @yield('content')
     </div>
 </div>

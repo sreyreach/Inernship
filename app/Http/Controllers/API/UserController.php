@@ -19,7 +19,7 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $id){
-        $credential = $request->only('first_name','last_name','email', 'password','company_name', 
+        $credential = $request->only('first_name','last_name','email','company_name', 
         'role', 'birth','phone_number','address');
         //return $credential;
         if ('Auth'::attempt($credential)) 

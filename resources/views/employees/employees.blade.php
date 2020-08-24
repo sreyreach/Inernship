@@ -52,6 +52,7 @@
                     @endforeach
             </tbody>
         </table>
+        {{ $user->links() }}
         @yield('content')
     </div>
 </div>

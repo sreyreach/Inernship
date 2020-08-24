@@ -52,6 +52,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $postcv->links() }}
         @yield('content')
     </div>
 </div>

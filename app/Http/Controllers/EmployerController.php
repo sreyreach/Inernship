@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 //use App\Auth;
 //use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Auth;
 class EmployerController extends Controller
 {
@@ -35,9 +36,15 @@ class EmployerController extends Controller
                 $user = User::where('role',2)->where('id',Auth::User()->id)->paginate(10);
             }
             return view('\employer\employer', compact('user'))
-                 ->with('i', (request()->input('page',1) -1) *5);
+                 ->with('i', (request()->input('page',1) -1) *10);
     }
 
+    // public function paginate($items, $perPage = 5, $page = null, $options = [])
+    // {
+    //     $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+    //     $items = $items instanceof Collection ? $items : Collection::make($items);
+    //     return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    // }
     
     public function search(Request $request)
     {

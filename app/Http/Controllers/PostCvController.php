@@ -22,7 +22,8 @@ class PostCvController extends Controller
         }else{
             $postcv = PostCv::where('user_id', Auth::User()->id)->paginate(10);
         }
-        return view('\post_cv\post_cv', compact('postcv'));
+        return view('\post_cv\post_cv', compact('postcv'))
+                ->with('i', (request()->input('page',1) -1) *5);
     }
 
     public function search(Request $request)

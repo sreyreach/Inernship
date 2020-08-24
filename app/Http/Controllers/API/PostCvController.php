@@ -100,6 +100,9 @@ class PostCvController extends Controller
     public function show($id)
     {
         $postcv = PostCv::find($id);
+
+        $postcv['createdAt'] = Carbon::parse($postcv->created_at)->format("m d,Y H:i:s");
+        $postcv['updatedAt'] = Carbon::parse($postcv->updated_at)->format("m d,Y H:i:s");
         return response()->json($postcv);
     }
 
