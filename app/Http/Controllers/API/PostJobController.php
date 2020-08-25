@@ -89,8 +89,9 @@ class PostJobController extends Controller
     public function show($id)
     {
         
-         $postjob = PostJob::find($id);
-       // $postjob = DB::table('postjob')->where('id','=',$id)->get();
+        $postjob = PostJob::find($id);
+        $postjob['createdAt'] = Carbon::parse($postjob->created_at)->format("m d,Y H:i:s");
+        $postjob['updatedAt'] = Carbon::parse($postjob->updated_at)->format("m d,Y H:i:s");
         return response()->json($postjob);
     }
    
@@ -125,10 +126,17 @@ class PostJobController extends Controller
                'email','address','last_date','image','phone_number','user_id','experience');
                if ($request->hasFile('photo'))
                {
-                       $photo = $request->file('photo');    
-                       $new_name = rand() . '.' .$photo->getClientOriginalName();
-                       $photo->move(public_path('images'), $new_name);
-                       $request['image'] = $new_name;
+                $validator = Validator::make($request->all(), [
+                    'file' => 'required|mimes:pdf',
+                ]);
+        
+                if ($validator->fails()) {
+                    return response()->json(['error' => 'The file must be a filename.pdf'], 200);
+                }
+                $photo = $request->file('photo');    
+                $new_name = rand() . '.' .$photo->getClientOriginalName();
+                $photo->move(public_path('images'), $new_name);
+                $request['image'] = $new_name;
                    // return $new_name;
                }else{
 

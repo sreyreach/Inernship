@@ -19,7 +19,7 @@ Route::post('/register', 'API\AuthController@register');
 // Route::get('/user', 'API\UserController@index');
 // Route::get('/user/{id}','API\UserController@show');
  //Route::post('/user/update/{id}','API\UserController@update');
-// Route::post('/user/updateprofile','API\UserController@updateProfile');
+ Route::post('/user/updateprofile','API\UserController@updateProfile');
  Route::get('/user/getDownloadProfile/{id}','API\UserController@getDownloadProfile');
 
 //Route::post('/postjob/create','API\PostJobController@store');
@@ -55,8 +55,8 @@ Route::group(["middleware" => ['auth:api']], function () {
 
     Route::get('/user', 'API\UserController@index');
     Route::get('/user/{id}','API\UserController@show');
-    //Route::post('/user/update/{id}','API\UserController@update');
-    Route::post('/user/updateprofile','API\UserController@updateProfile');
+    Route::post('/user/update/{id}','API\UserController@update');
+    //Route::post('/user/updateprofile','API\UserController@updateProfile');
 
     //JOB
 

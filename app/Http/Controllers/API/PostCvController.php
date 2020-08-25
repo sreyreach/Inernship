@@ -26,7 +26,13 @@ class PostCvController extends Controller
      */
     public function index()
     {
-        $postcv = DB::table('postcv')->latest('id')->get();
+        // $postcv = DB::table('postcv')->latest('id')->get();
+        $postcv = PostCV::latest('id')->get();
+        foreach($postcv as $i => $p)
+        {
+            $postcv[$i]['createdAt'] = Carbon::parse($p['created_at'])->format("Y-m-d H:i:s");
+            $postcv[$i]['updatedAt'] = Carbon::parse($p['updated_at'])->format("Y-m-d H:i:s");
+        }
         return response()->json($postcv);
     }
 
@@ -101,8 +107,8 @@ class PostCvController extends Controller
     {
         $postcv = PostCv::find($id);
 
-        $postcv['createdAt'] = Carbon::parse($postcv->created_at)->format("m d,Y H:i:s");
-        $postcv['updatedAt'] = Carbon::parse($postcv->updated_at)->format("m d,Y H:i:s");
+        $postcv['created_at'] = Carbon::parse($postcv->created_at)->format("m d,Y H:i:s");
+        $postcv['updated_at'] = Carbon::parse($postcv->updated_at)->format("m d,Y H:i:s");
         return response()->json($postcv);
     }
 
@@ -215,6 +221,13 @@ class PostCvController extends Controller
 
     public function userId($id){
         $postcv = PostCv::where('user_id', $id)->get(); 
+        foreach($postcv as $i => $p)
+        {
+            $postcv[$i]['createdAt'] = Carbon::parse($p->created_at)->format("Y-m-d H:i:s");
+            $postcv[$i]['updatedAt'] = Carbon::parse($p->updated_at)->format("Y-m-d H:i:s");
+           
+        }
+        
         return response()->json($postcv);
     }
     // $datas = User::where('first_name', 'like', '%'.$search.'%')
