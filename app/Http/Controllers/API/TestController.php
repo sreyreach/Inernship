@@ -8,6 +8,23 @@ use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
+
+    public function getTitleOfPostJob(){
+        $titles = DB::table('postjob')->select('title')->distinct()->get();
+
+        return response()->json($titles);
+    }
+
+    public function getTitleOfPostCv(){
+        $titles = DB::table('postcv')->select('title')->distinct()->get();
+
+        return response()->json($titles);
+    }
+
+    public function getDataPostJob(){
+        $postJob = DB::table('postjob')->paginate(2);
+        return response()->json($postJob);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -51,8 +68,23 @@ class TestController extends Controller
         $postcv = DB::table('users')
                     ->where('users.id','=',$id)
                     ->Join('postcv', 'users.id', '=', 'postcv.user_id')
-                    ->select('users.first_name','users.last_name','postcv.title','postcv.updated_at','postcv.experience','users.phone_number','users.email')
-                    ->get();
+                    ->select(
+                        'users.first_name',
+                        'users.last_name',
+                        'postcv.title',
+                        'postcv.updated_at',
+                        'postcv.experience',
+                        'users.phone_number',
+                        'users.email')
+                    ->paginate(2);
+
+        return response()->json($postcv);
+    }
+
+    public function searchPostJobByTerm(Request $request){
+
+        $postcv = DB::table('postjob')
+                    ->where('term',$request->term)->paginate(2);
 
         return response()->json($postcv);
     }

@@ -20,7 +20,7 @@ Route::post('/register', 'API\AuthController@register');
 // Route::get('/user/{id}','API\UserController@show');
  //Route::post('/user/update/{id}','API\UserController@update');
  Route::post('/user/updateprofile','API\UserController@updateProfile');
- Route::get('/user/getDownloadProfile/{id}','API\UserController@getDownloadProfile');
+ Route::get('/user/getDownloadProfile/{id}/{name}','API\UserController@getDownloadProfile');
 
 //Route::post('/postjob/create','API\PostJobController@store');
 // Route::post('/postjob/update/{id}','API\PostJobController@update'); 
@@ -31,7 +31,7 @@ Route::post('/register', 'API\AuthController@register');
 //Route::get('/postjob/read','API\PostJobController@index');
 // Route::get('/postjob/user/{id}','API\PostJobController@userId');
 //Route::get('/postjob/readtypejob/{title}','API\PostJobController@readTypeJob');
-Route::get('/postjob/getdownload/{id}','API\PostJobController@getDownload'); 
+Route::get('/postjob/getdownload/{id}/{name}','API\PostJobController@getDownload'); 
 
 
 
@@ -45,8 +45,6 @@ Route::post('/postcv/create','API\PostCvController@store');
 Route::get('/postcv/user/{id}','API\PostCvController@userId');
 //Route::get('/postcv/readtypecv/{title}','API\PostCvController@readTypeCv');
 Route::get('/postcv/showPdf/{id}','API\PostCvController@showPDF'); 
-
-
 
 
 Route::group(["middleware" => ['auth:api']], function () {
@@ -82,5 +80,9 @@ Route::group(["middleware" => ['auth:api']], function () {
 
 //TestController
 Route::get('/test/user/show','API\TestController@index');
+Route::get('/test/postjob/getdata','API\TestController@getDataPostJob');
 Route::get('/test/post/byUserId/{id}','API\TestController@show');
+Route::post('/test/postjob/byTerm','API\TestController@searchPostJobByTerm');
+Route::get('/test/title','API\TestController@getTitleOfPostJob');
+Route::get('/test/postcv/title','API\TestController@getTitleOfPostCv');
 

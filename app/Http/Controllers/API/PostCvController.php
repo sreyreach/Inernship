@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\PostCv;
 
@@ -24,14 +24,45 @@ class PostCvController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $title = $request->title;
         // $postcv = DB::table('postcv')->latest('id')->get();
-        $postcv = PostCV::latest('id')->get();
-        foreach($postcv as $i => $p)
-        {
-            $postcv[$i]['createdAt'] = Carbon::parse($p['created_at'])->format("Y-m-d H:i:s");
-            $postcv[$i]['updatedAt'] = Carbon::parse($p['updated_at'])->format("Y-m-d H:i:s");
+        if($title == null){
+            $postcv = DB::table('users')
+        ->Join('postcv', 'users.id', '=', 'postcv.user_id')
+        ->select(
+            'postcv.id',
+            'postcv.pdf',
+            'postcv.user_id',
+            'users.profile',
+            'users.first_name',
+            'users.last_name',
+            'postcv.title',
+            'postcv.updated_at',
+            'postcv.experience',
+            'users.phone_number',
+            'users.email')
+        ->orderByDesc('postcv.updated_at')
+        ->paginate(5);
+        }else{
+            $postcv = DB::table('users')
+        ->Join('postcv', 'users.id', '=', 'postcv.user_id')
+        ->where('postcv.title','=',$title)
+        ->select(
+            'postcv.id',
+            'postcv.pdf',
+            'postcv.user_id',
+            'users.profile',
+            'users.first_name',
+            'users.last_name',
+            'postcv.title',
+            'postcv.updated_at',
+            'postcv.experience',
+            'users.phone_number',
+            'users.email')
+        ->orderByDesc('postcv.updated_at')
+        ->paginate(5);
         }
         return response()->json($postcv);
     }
@@ -220,13 +251,22 @@ class PostCvController extends Controller
     }
 
     public function userId($id){
-        $postcv = PostCv::where('user_id', $id)->get(); 
-        foreach($postcv as $i => $p)
-        {
-            $postcv[$i]['createdAt'] = Carbon::parse($p->created_at)->format("Y-m-d H:i:s");
-            $postcv[$i]['updatedAt'] = Carbon::parse($p->updated_at)->format("Y-m-d H:i:s");
-           
-        }
+        $postcv = DB::table('users')
+        ->where('users.id','=',$id)
+        ->Join('postcv', 'users.id', '=', 'postcv.user_id')
+        ->select(
+            'postcv.id',
+            'postcv.pdf',
+            'postcv.user_id',
+            'users.profile',
+            'users.first_name',
+            'users.last_name',
+            'postcv.title',
+            'postcv.updated_at',
+            'postcv.experience',
+            'users.phone_number',
+            'users.email')
+        ->get();
         
         return response()->json($postcv);
     }

@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id){
         $credential = $request->only('first_name','last_name','email','company_name', 
-        'role', 'birth','phone_number','address');
+        'role', 'birth','phone_number');
         //return $credential;
         if ('Auth'::attempt($credential)) 
         {
@@ -81,7 +81,7 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function getDownloadProfile($id)
+    public function getDownloadProfile($id,$name)
     {
         // $user = User::findOrFail($id)->first;
         // return response()->json($user,200);
