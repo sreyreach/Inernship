@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', 'API\AuthController@login');
 Route::post('/register', 'API\AuthController@register');
 
+Route::Post('/getnotify',"API\UserController@notifyUser");
+
 // Route::get('/user', 'API\UserController@index');
 // Route::get('/user/{id}','API\UserController@show');
  //Route::post('/user/update/{id}','API\UserController@update');
@@ -52,7 +54,7 @@ Route::group(["middleware" => ['auth:api']], function () {
     //USER
 
     Route::get('/user', 'API\UserController@index');
-    Route::get('/user/{id}','API\UserController@show');
+    Route::get('/user/{id}/{updated_at}','API\UserController@show');
     Route::post('/user/update/{id}','API\UserController@update');
     //Route::post('/user/updateprofile','API\UserController@updateProfile');
 

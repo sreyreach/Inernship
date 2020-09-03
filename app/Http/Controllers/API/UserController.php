@@ -5,9 +5,33 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\helper;
 
 class UserController extends Controller
 {
+    public function notifyUser(Request $request){
+        $user = User::where('id', $request->id)->first();
+      
+        $notification_id = "dHod9cPxRrSRo4rw6grOgb:APA91bFCTTSU82A746aHYbwLaiFzP4RY8e6SzcSLzq6bueTYd9QVJVGJ4-izX6yj4vr4oIInCegskI3d-MCo7ZT6Y3tVJWdRrJnwgmmQ_ege4pLRnr6PB9lDT07YWV0Pjs6yM1tTjpuF";
+        $title = "Greeting Notification";
+        $message = "Have good day!";
+        $id = $user->id;
+        $type = "basic";
+        $res = helper::send_notification_FCM($notification_id, $title, $message, $id,$type);
+      
+        if($res == 1){
+      
+           // success code
+           return "ok";
+      
+        }else{
+      
+            return"oh";
+          // fail code
+        }
+         
+      
+     }
     public function index(){
         $user = User::latest('id')->get();
         return response()->json($user);
@@ -20,12 +44,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id){
         $credential = $request->only('first_name','last_name','email','company_name', 
-        'role', 'birth','phone_number');
-        //return $credential;
-        if ('Auth'::attempt($credential)) 
-        {
-            return response()->json(['error'=>'Unauthorised'], 401);
-        } 
+        'role', 'birth','phone_number'); 
         $form_data = array(
             'first_name'   => $request->first_name,
             'last_name'    => $request->last_name,

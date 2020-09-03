@@ -14,7 +14,7 @@
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
-
+$app->register(LaravelFCM\FCMServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
