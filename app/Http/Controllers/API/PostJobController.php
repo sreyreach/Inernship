@@ -286,7 +286,6 @@ class PostJobController extends Controller
                     'last_date'    =>  $request->last_date,
                     'address'      =>  $request->address,
                     'phone_number' =>  $request->phone_number,
-                    'user_id'       => $request->user_id,
                 ); 
 
                 PostJob::where('id',$id)->update($form_data);
@@ -304,7 +303,6 @@ class PostJobController extends Controller
           //$postjob = PostJob::where('id',$request->user_id)->update($request->toArray());
           
           $form_data = array(
-            'id' => $request->user_id,
             'company_name' => $request->company_name,
             'term'         => $request->term,    
             'title'        =>  $request->title,
@@ -316,7 +314,7 @@ class PostJobController extends Controller
             'phone_number' =>  $request->phone_number,
             'image'        =>  $request->image
         ); 
-        //dd($form_data);
+        
         PostJob::where('id',$id)->update($form_data);
         $postjob = PostJob::where('id',$id)->get(); 
          
