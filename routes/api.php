@@ -28,7 +28,7 @@ Route::Post('/getnotify',"API\UserController@notifyUser");
 // Route::post('/postjob/update/{id}','API\PostJobController@update'); 
 // Route::delete('/postjob/delete/{id}','API\PostJobController@destroy'); 
 // Route::get('/postjob/show/{id}','API\PostJobController@show');
-//Route::get('/postjob/read','API\PostJobController@index');
+Route::get('/postjob/read','API\PostJobController@index');
 
 //Route::get('/postjob/read','API\PostJobController@index');
 // Route::get('/postjob/user/{id}','API\PostJobController@userId');
@@ -64,7 +64,7 @@ Route::group(["middleware" => ['auth:api']], function () {
     Route::post('/postjob/update/{id}','API\PostJobController@update'); 
     Route::delete('/postjob/delete/{id}','API\PostJobController@destroy'); 
     Route::get('/postjob/show/{id}','API\PostJobController@show');
-    Route::get('/postjob/read','API\PostJobController@index');
+   // Route::get('/postjob/read','API\PostJobController@index');
     Route::get('/postjob/user/{id}','API\PostJobController@userId');
     Route::get('/postjob/readtypejob/{title}','API\PostJobController@readTypeJob');
 
